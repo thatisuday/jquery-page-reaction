@@ -1,6 +1,8 @@
 # page-reaction
 A jQuery plugin to report user page interactions with web-ui using web-sockets
 
+##[DEMO](https://rawgit.com/thatisuday/page-reaction/master/demo/index-raw.html)
+
 ***
 
 ### install
