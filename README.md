@@ -3,6 +3,11 @@ A jQuery plugin to report user page interactions with web-ui using web-sockets
 
 ***
 
+### install
+```
+bower install page-reaction
+```
+
 ### use
 ```
 var socket = io('http://127.0.0.1:3158');
