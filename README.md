@@ -11,12 +11,12 @@ bower install page-reaction
 ### dependencies
 ```
 <!-- required -->
-<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="/bower_components/protonet/jquery.inview/jquery.inview.min.js"></script>
-<script src="/node_modules/socket.io-client/dist/socket.io.min.js"></script>
+<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script src="./bower_components/protonet/jquery.inview/jquery.inview.min.js"></script>
+<script src="./bower_components/socket.io-client/dist/socket.io.min.js"></script>
 
 <!-- plugin -->
-<script src="/bower_components/page-reaction/dist/plugin.min.js"></script>
+<script src="./bower_components/page-reaction/dist/plugin.min.js"></script>
 ```
 
 ### use
