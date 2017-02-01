@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "jquery": "^3.1.1",
-    "protonet/jquery.inview": "^1.1.2"
+    "protonet/jquery.inview": "^1.1.2",
+    "socket.io-client": "^1.7.2"
   }
 }
