@@ -8,6 +8,17 @@ A jQuery plugin to report user page interactions with web-ui using web-sockets
 bower install page-reaction
 ```
 
+### dependencies
+```
+<!-- required -->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/protonet/jquery.inview/jquery.inview.min.js"></script>
+<script src="/node_modules/socket.io-client/dist/socket.io.min.js"></script>
+
+<!-- plugin -->
+<script src="/bower_components/page-reaction/dist/plugin.min.js"></script>
+```
+
 ### use
 ```
 var socket = io('http://127.0.0.1:3158');
@@ -24,7 +35,7 @@ $(document).ready(function(){
 	on : 'click',					// default 'click' event
 	once : true,					// default is true,
 	socket : socket, 				// a websocket connection (must provide)
-	sessionId : sessionId, 			// user session id, default will be a random value
+	sessionId : sessionId, 			// user session id
 	pickData : ['sku']				// default empty array ([]),
 	callback : fn($elem, data){}	// default null function
 }

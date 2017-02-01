@@ -17,11 +17,12 @@
     "url": "https://github.com/thatisuday/page-reaction/issues"
   },
   "homepage": "https://github.com/thatisuday/page-reaction#readme",
-  "dependencies": {},
+  "dependencies": {
+    "socket.io": "^1.7.2"
+  },
   "devDependencies": {
     "body-parser": "^1.16.0",
     "express": "^4.14.1",
-    "socket.io": "^1.7.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-cssmin": "^0.1.7",
