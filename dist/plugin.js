@@ -28,8 +28,33 @@
 	// emit interaction event to socket server
 	var socketEmit = function(socket, data, callback){
 		socket.emit('interaction', data);
-		callback(data);
+		if(callback) callback(data);
 	}
+
+	// emit inview event every second to trim down traffic
+	var inviewPending = [];
+	setInterval(function(){
+		var _inviewPending = inviewPending.splice(0, inviewPending.length);
+
+		if(_inviewPending.length > 0){
+			// get bulk data
+			var data = _inviewPending.map(function(o){
+				return o.data;
+			});
+
+			// get a socket
+			var socket = _inviewPending[0].socket;
+			
+			// emit socket event with bulk data
+			socketEmit(socket, data, null);
+			
+			// call all associated callbacks
+			_inviewPending.forEach(function(o){
+				o.callback(o.data);
+			});
+		}
+	}, 1000);
+
 
 	/*****************************************************************/
 
@@ -41,7 +66,7 @@
 			on 			:  'click',
 			once 		:  true,
 			pickData 	: [],
-		}, options);
+		}, $.fn.pageReact.config, options);
 
 		/*****************************************/
 
@@ -68,6 +93,19 @@
 					sessionId 	: 	options.sessionId,
 					pickData 	: 	getPickData($this, options.pickData)
 				}, callback);
+			}
+
+			// Dispatch interaction event to socket server in bulk
+			var dispatchBulkEvent = function(event, callback){
+				inviewPending.push({
+					socket : options.socket,
+					data : {
+						event 		: 	event,
+						sessionId 	: 	options.sessionId,
+						pickData 	: 	getPickData($this, options.pickData)
+					},
+					callback : callback
+				});
 			}
 
 			// bind events to dom elements
@@ -112,7 +150,7 @@
 			// when element is in view
 			else if(options.on == 'inview'){
 				bindDomEvents('inview', function(event){
-					dispatchEvent(event, function(data){
+					dispatchBulkEvent(event, function(data){
 						if(options.callback) options.callback($this, data);
 					});
 				});
@@ -129,4 +167,14 @@
 
 		return this;
 	}
+
+	// plugin default configurations
+	// user can setup properties using `$.fn.pageReact.key`
+	$.fn.pageReact.config = {
+		socket : null
+	};
+	$.fn.pageReactConfig = function(options){
+		$.extend($.fn.pageReact.config, options);
+	}
+
 })(jQuery);

@@ -53,75 +53,42 @@
 	
 	<body>
 		<div class="box-container">
-			<div class="box" id="box1" data-sku="abcd1234" data-color="red">click</div>
-			<div class="box" id="box2" data-sku="abcd5678">mouseenter</div>
-			<div class="box" id="box3" data-sku="abcd1357">inview</div>
-			<div class="box" id="box4" data-sku="abcd2468">onready</div>
+			<div class="box" id="box1" data-productsku="IN1648MTODREPNK-267">box 1</div>
+			<div class="box" id="box2" data-productsku="IN1648MTODREPNK-122">box 2</div>
+			<div class="box" id="box3" data-productsku="IN1648MTODREPNK-343">box 3</div>
+			<div class="box" id="box4" data-productsku="IN1648MTODREPNK-444">box 4</div>
 		</div>
 
 		<script type="text/javascript">
-
-			// generate mock session id
-			var mockSessId = function(n){
-				var n = n || 16;
-				var text = "";
-				var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-				for(var i=0; i < n; i++){
-					text += possible.charAt(Math.floor(Math.random() * possible.length));
-				}
-
-				return text;
-			}
-
-			/**************************************************/
-
-
 			var socket = io('http://127.0.0.1:3158');
-			var sessionId = mockSessId();
+			var sessionId = '5721556883ba43ba8e73668b26a64b8c';
 
+			// plugin configurations
+			$(document).pageReactConfig({
+				socket : socket,
+				sessionId : sessionId,
+				pickData : ['productsku'],
+				callback : function($elem, data){
+					$elem.text(data.event);
+				}
+			});
+
+			// apply plugin to DOM elements
 			$(document).ready(function(){
-				$('#box1').pageReact({
-					on:'click',
-					socket:socket,
-					sessionId : sessionId,
-					pickData:['sku', 'color'],
-					callback : function($elem, data){
-						$elem.css('color', 'yellow');
-						console.log(data);
-					}
+				$('#box1, #box2, #box3, #box4').pageReact({
+					on:'click'
 				});
 
-				$('#box2').pageReact({
-					on:'mouseenter',
-					socket:socket,
-					sessionId : sessionId,
-					pickData:['sku'],
-					callback : function($elem, data){
-						$elem.css('color', 'red');
-						console.log(data);
-					}
+				$('#box1, #box2, #box3, #box4').pageReact({
+					on:'mouseenter'
 				});
 
-				$('#box3').pageReact({
-					on:'inview',
-					socket:socket,
-					sessionId : sessionId,
-					pickData:['sku'],
-					callback : function($elem, data){
-						$elem.css('color', 'orange');
-						console.log(data);
-					}
+				$('#box1, #box2, #box3, #box4').pageReact({
+					on:'inview'
 				});
 
-				$('#box4').pageReact({
-					on:'ready',
-					socket:socket,
-					sessionId : sessionId,
-					callback : function($elem, data){
-						$elem.css('color', 'cyan');
-						console.log(data);
-					}
+				$('#box1, #box2, #box3, #box4').pageReact({
+					on:'ready'
 				});
 			});
 		</script>

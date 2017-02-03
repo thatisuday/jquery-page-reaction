@@ -47,6 +47,21 @@ $(document).ready(function(){
 - pickData => Collect values from html data attributes to send along with ping payload.
 - callback => Invoke a callback function after ping. 
 
+#### Set options globally
+You can setup above options globally like below.
+```
+$(document).pageReactConfig({
+	socket : socket,
+	sessionId : sessionId,
+	pickData : ['productsku'],
+	callback : function($elem, data){
+		$elem.text(data.event);
+	}
+});
+```
+
+> Any options mentioned in `$(selector).pageReact(options);` fashion will override global options.
+
 
 ### Events
 ```
